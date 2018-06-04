@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentinogagliardi/webpack-4-quickstart.git"
+  },
+  "keywords": [],
+  "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/valentinogagliardi/webpack-4-quickstart/issues"
