@@ -50,9 +50,9 @@
     }
   }
 
-  &__checkbox-input:checked ~ &__checkbox-label &__checkmark::after{
-    opacity: 1;
-  }
+  // &__checkbox-input:checked ~ &__checkbox-label &__checkmark::after{
+  //   opacity: 1;
+  // }
 
 
   // task Details 
@@ -90,6 +90,10 @@
       color: $color-grey-4;
     }
 
+    &-fullstar {
+      display: none;
+    }
+
     &-edit:hover {
       color: $primary-color;
       transform: scale(1.05);
@@ -106,7 +110,27 @@
 // checkbox checked
 
 .task-checked {
+  .task__checkmark::after,
+  .task__checkbox-input:checked ~ .task__checkbox-label .task__checkmark::after{
+    opacity: 1;
+  }
+
   .task__text {
     text-decoration: line-through;
+  }
+}
+
+// task bookmark
+
+.task__bookmark {
+  background-color: $color-yellow-light;
+
+  .task__icons-fullstar {
+    display: inline-block;
+    color: $color-yellow;
+  }
+
+  .task__icons-star {
+    display: none;
   }
 }

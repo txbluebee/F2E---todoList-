@@ -40,7 +40,7 @@ export default class App extends Component {
 
   renderTask() {
     return this.state.tasks.map(item => {
-      const { id, taskName, date, comment } = item;
+      const { id, taskName, date, comment, bookmarked, completed } = item;
       return (
         <Task 
           key={id} 
@@ -48,6 +48,8 @@ export default class App extends Component {
           taskName={taskName} 
           date={date} 
           comment={comment}
+          bookmarked={bookmarked}
+          completed={completed}
           deleteTask={this.deleteTask}/>
       )
     })
@@ -59,7 +61,7 @@ export default class App extends Component {
     if (!this.state.tasks) {
       return <div>loading...</div>
     }
-    console.log(this.state.tasks);
+
     return (
       <div>
         <TopNav />

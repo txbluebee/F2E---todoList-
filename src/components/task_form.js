@@ -17,7 +17,6 @@ export class TaskForm extends React.Component {
   }
 
   onInputChange(e){
-    console.log(e);
     this.setState({[e.target.name]: e.target.value});
   }
 
@@ -29,7 +28,8 @@ export class TaskForm extends React.Component {
       taskName: this.state.taskName,
       date: this.state.date,
       comment: this.state.comment,
-      bookmarked: false
+      bookmarked: false,
+      completed: false
     };
 
     // push to firebase
@@ -50,13 +50,21 @@ export class TaskForm extends React.Component {
   }
 
   onBtnCancel(){
-    document.querySelector('.newTask__btn').style.display = "flex";
-    document.querySelector('.taskForm').style.display = "none";
+    if (!this.props.id){
+      document.getElementById('task-form').style.display="none";
+      document.querySelector('.newTask__btn').style.display="flex";
+    }
+
+    document.getElementById(`form-${this.props.id}`).style.display="none";
+    document.getElementById(`task-${this.props.id}`).style.display="flex";
   }
 
   render() {
+
+    const defaultFormID = `${this.props.id === undefined ?"task-form":`form-${this.props.id}`}`;
+
     return (
-      <form className="taskForm" onSubmit={this.onFormSubmit} id={`form-${this.props.id}`}>
+      <form className="taskForm" onSubmit={this.onFormSubmit} id={defaultFormID}>
         <div className="taskForm__header">
           <input 
             type="text"
@@ -122,7 +130,7 @@ export class TaskForm extends React.Component {
             role="button"
             className="taskForm__button taskForm__button-add">
             <Icon name="icon-plus" style="taskForm__footerIcon"/>
-            <span>Add Task</span>
+            <span>{this.props.id?"Edit Task": "Add Task"}</span>
           </button>
         </div>
       </form>

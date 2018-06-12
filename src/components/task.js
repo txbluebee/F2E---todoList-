@@ -2,6 +2,8 @@ import React from 'react';
 import Icon from './icon';
 import TaskForm from './task_form';
 
+import { tasksRef } from './../services/firebase';
+
 class Task extends React.Component {
 
   constructor(props){
@@ -9,15 +11,13 @@ class Task extends React.Component {
 
     this.checkedTask = this.checkedTask.bind(this);
     this.editTask = this.editTask.bind(this);
+    this.toggleBookmark = this.toggleBookmark.bind(this);
   }
 
   checkedTask(){
     const checkbox = document.getElementById(`checkbox-${this.props.id}`);
-    if (checkbox.checked) {
-      checkbox.parentNode.parentNode.classList.add('task-checked');
-    } else {
-      checkbox.parentNode.parentNode.classList.remove('task-checked');
-    }
+    tasksRef.child(this.props.id).update({completed: !this.props.completed});
+    checkbox.parentNode.parentNode.classList.toggle('task-checked');
   }
 
 
@@ -26,12 +26,20 @@ class Task extends React.Component {
     document.getElementById(`form-${this.props.id}`).style.display = 'block';
   }
 
-  render(){
 
-    const {id, taskName, date, comment} = this.props;
+  toggleBookmark(){
+    tasksRef.child(this.props.id).update({bookmarked: !this.props.bookmarked});
+    document.getElementById(`task-${this.props.id}`).classList.toggle('task__bookmark');
+  }
+
+
+  render(){
+    const {id, taskName, date, comment, bookmarked, completed} = this.props;
+    const taskClassName = `task ${bookmarked?'task__bookmark': ''} ${completed?'task-checked': ''}` ;
+
     return (
       <li>
-      <div className="task" id={`task-${id}`}>
+      <div className={taskClassName} id={`task-${id}`}>
         <div className="task__checkbox-group">
           <input
             type="checkbox"
@@ -55,6 +63,11 @@ class Task extends React.Component {
         </div>
         <div className="task__icons">
           <span 
+            onClick= {this.toggleBookmark}
+            className="fa fa-star task__icons-fullstar">
+          </span>
+          <span 
+            onClick= {this.toggleBookmark}
             className="fa fa-star-o task__icons-star">
           </span>
           <span
