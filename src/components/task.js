@@ -32,6 +32,14 @@ class Task extends React.Component {
     document.getElementById(`task-${this.props.id}`).classList.toggle('task__bookmark');
   }
 
+  shortenComment(string){
+    if (string.length > 6){
+      return string.substr(0,6) + '...';
+    } else {
+      return string;
+    }
+  }
+
 
   render(){
     const {id, taskName, date, comment, bookmarked, completed} = this.props;
@@ -58,7 +66,9 @@ class Task extends React.Component {
             </span>
             
             <Icon name="icon-file" />
-            <Icon name="icon-message-circle" />
+            <span>
+              <Icon name="icon-message-circle" /> {this.shortenComment(comment)}
+            </span>
           </div>
         </div>
         <div className="task__icons">

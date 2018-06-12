@@ -12,6 +12,7 @@ class NewTaskBar extends React.Component {
   displayTaskForm(){
     document.querySelector('.newTask__btn').style.display = "none";
     document.querySelector('.taskForm').style.display = "block";
+    document.querySelector('.taskForm__input').focus();
   }
 
   render() {

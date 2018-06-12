@@ -50,13 +50,14 @@ export class TaskForm extends React.Component {
   }
 
   onBtnCancel(){
-    if (!this.props.id){
-      document.getElementById('task-form').style.display="none";
-      document.querySelector('.newTask__btn').style.display="flex";
-    }
-
+    if (this.props.id){
+      
     document.getElementById(`form-${this.props.id}`).style.display="none";
     document.getElementById(`task-${this.props.id}`).style.display="flex";
+
+    }
+    document.getElementById('task-form').style.display="none";
+    document.querySelector('.newTask__btn').style.display="flex";
   }
 
   render() {
