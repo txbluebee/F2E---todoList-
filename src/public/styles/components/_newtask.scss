@@ -1,0 +1,26 @@
+// Add Task Bar
+
+.newTask {
+  &__btn {
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    border: none;
+    font-size: 2rem;
+    color: $color-grey-3;
+    background: $color-white;
+    padding: 1.5rem;
+    padding-left: 3rem;
+    display: flex;
+    align-items: center;
+    &:hover,
+    &:focus {
+      outline: none;
+      box-shadow: 0rem 0.5rem 1rem rgba($color-black, 0.3);
+    }
+    span {
+      margin-left: 2rem;
+    }
+  }
+}
+

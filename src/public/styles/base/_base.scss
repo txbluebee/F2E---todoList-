@@ -1,0 +1,20 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%; // 10px/16px
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  box-sizing: border-box;
+  position: relative;
+  height: 100vh;
+  background-color: rgb(117, 110, 110);
+}

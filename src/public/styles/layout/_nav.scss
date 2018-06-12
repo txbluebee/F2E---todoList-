@@ -1,0 +1,40 @@
+// Navbar
+
+.top-nav {
+  background-color: $primary-color;
+  height: 5rem;
+
+  &__list {
+    width: 620px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    margin-bottom: 0;
+    font-size: 1.7rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__link:link,
+  &__link:visited {
+    font-size: 2rem;
+    font-weight: 700;
+    display: inline-block;
+    text-decoration: none;
+    padding: 0 2rem; 
+    color: $primary-color-dark;
+    letter-spacing: 0.2rem;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    border-bottom: 4px solid transparent;
+    box-sizing: content-box;
+  }
+
+  &__link:hover,
+  &__link:active {
+    color: $color-white;
+    border-bottom: 4px solid $primary-color-dark;
+  }
+}  

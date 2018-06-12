@@ -1,37 +1,20 @@
-@import "~bootstrap/scss/bootstrap";
+@import "abstracts/variables";
 
-// color
-$main-color: #4A90E2;
-$main-color-darl: #00408B;
+@import "base/base";
+@import "base/utilities";
 
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
+@import "layout/home";
+@import "layout/nav";
 
-html {
-  font-size: 62.5%; // 10px/16px
-}
+@import "components/icon";
+@import "components/newtask";
+@import "components/task";
+@import "components/taskform";
 
-body {
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  box-sizing: border-box;
 
-  min-height: 100vh;
-  background-color: #777;
-  position: relative;
-}
 
-#main {
-  width: 50rem;
-  height: 20rem;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-}
+
+
+
+
+
