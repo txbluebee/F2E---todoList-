@@ -1,6 +1,6 @@
 #main {
   max-width: 100.24rem;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   background-color: $color-grey-1;
 }
@@ -9,4 +9,8 @@
   width: 62rem;
   margin: 0 auto;
   padding: 2rem 0;
+}
+
+.taskList {
+  list-style: none;
 }

@@ -28,7 +28,8 @@ export class TaskForm extends React.Component {
     const task = {
       taskName: this.state.taskName,
       date: this.state.date,
-      comment: this.state.comment
+      comment: this.state.comment,
+      bookmarked: false
     };
 
     // push to firebase
@@ -55,7 +56,7 @@ export class TaskForm extends React.Component {
 
   render() {
     return (
-      <form className="taskForm" onSubmit={this.onFormSubmit}>
+      <form className="taskForm" onSubmit={this.onFormSubmit} id={`form-${this.props.id}`}>
         <div className="taskForm__header">
           <input 
             type="text"
