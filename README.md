@@ -4,7 +4,7 @@
 
 #### By Brian Fan
 
-[Click Here To See todo App](http://stupid-rabbits.surge.sh/);
+[Demo](http://spiffy-motion.surge.sh/);
 
 ## Description
 
@@ -12,7 +12,7 @@ React todoList is web app for user to track daily tasks to make life easiler.
 
 ## Planning
 
-[Design Screen Print](https://hexschool.github.io/THE_F2E_Design/todolist/#artboard0)
+[Mockup](https://hexschool.github.io/THE_F2E_Design/todolist/#artboard0)
 
 
 ## Prerequisites
