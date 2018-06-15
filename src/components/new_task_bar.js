@@ -6,26 +6,39 @@ class NewTaskBar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.displayTaskForm = this.displayTaskForm.bind(this);
+    this.state = {
+      isOpen: false
+    }
+    this.handleFormOpen = this.handleFormOpen.bind(this);
+    this.handleFormCancel = this.handleFormCancel.bind(this);
   }
 
-  displayTaskForm(){
-    document.querySelector('.newTask__btn').style.display = "none";
-    document.querySelector('.taskForm').style.display = "block";
-    document.querySelector('.taskForm__input').focus();
+  handleFormOpen(){
+    this.setState({
+      isOpen: true
+    })
+  }
+
+  handleFormCancel(){
+    this.setState({
+      isOpen:false
+    })
   }
 
   render() {
+    console.log(this.state.isOpen);
     return (
       <div className="newTask">
+        { !this.state.isOpen && 
         <button 
           type="button" 
           className="newTask__btn"
-          onClick={this.displayTaskForm}>
+          onClick={this.handleFormOpen}>
           <Icon name="icon-plus" style="newTask__icon" />
           <span>Add Task</span>
-        </button>
-        <TaskForm addNewTask={this.props.addNewTask}/>
+        </button>}
+
+        {this.state.isOpen && <TaskForm handleFormCancel={this.handleFormCancel}/>}
       </div>
     );
   }

@@ -1,80 +1,85 @@
-import React from 'react';
-import Icon from './icon';
-import { tasksRef } from './../services/firebase';
+import React from "react";
+import Icon from "./icon";
+import { tasksRef } from "./../services/firebase";
+
+const emptyTask = {
+  taskName: "",
+  date: "",
+  comment: ""
+};
 
 export class TaskForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      taskName: '',
-      date: '',
-      comment: ''
-    }
+      task: emptyTask
+    };
     this.onInputChange = this.onInputChange.bind(this);
-    this.onBtnCancel = this.onBtnCancel.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onInputChange(e){
-    this.setState({[e.target.name]: e.target.value});
+  componentDidMount(){
+    if (this.props.taskItem){
+      this.setState({
+        task: this.props.taskItem
+      })
+    }  
   }
 
-  onFormSubmit(e){
+  onInputChange(e) {
+    const newTask = this.state.task;
+    newTask[e.target.name] = e.target.value;
+    this.setState({
+      task: newTask
+    });
+  }
+
+  onFormSubmit(e) {
     e.preventDefault();
 
-    // create task object
-    const task = {
-      taskName: this.state.taskName,
-      date: this.state.date,
-      comment: this.state.comment,
-      bookmarked: false,
-      completed: false
-    };
-
-    // push to firebase
-    const taskRef = tasksRef.push();
-    task.id = taskRef.key;
-    taskRef.set(task);
-
-    // clear fields 
-    this.setState({
-      taskName: '',
-      date: '',
-      comment: ''
-    })
-
-    // hide task form
-    document.querySelector('.newTask__btn').style.display = "flex";
-    document.querySelector('.taskForm').style.display = "none";
-  }
-
-  onBtnCancel(){
-    if (this.props.id){
-      
-    document.getElementById(`form-${this.props.id}`).style.display="none";
-    document.getElementById(`task-${this.props.id}`).style.display="flex";
-
+    if (this.props.taskItem.id){
+      this.props.updateTask(this.state.task);
+      this.props.cancelEditForm();
+    } else {
+      this.props.createTask(this.state.task);
+      this.setState({
+        task: emptyTask
+      });
     }
-    document.getElementById('task-form').style.display="none";
-    document.querySelector('.newTask__btn').style.display="flex";
   }
+
+  handleFormCancel = () =>{
+    if (!this.props.taskItem){
+      this.props.cancelEmptyForm();
+    } else {
+      this.props.cancelEditForm();
+    }
+  }
+
 
   render() {
-
-    const defaultFormID = `${this.props.id === undefined ?"task-form":`form-${this.props.id}`}`;
+    const { task } = this.state;
+    const defaultFormID = `${
+      this.props.id === undefined ? "task-form" : `form-${this.props.id}`
+    }`;
 
     return (
-      <form className="taskForm" onSubmit={this.onFormSubmit} id={defaultFormID}>
+      <form
+        className="taskForm"
+        onSubmit={this.onFormSubmit}
+        id={defaultFormID}
+      >
         <div className="taskForm__header">
-          <input 
+          <input
             type="text"
-            name="taskName" 
-            className="taskForm__input" 
+            name="taskName"
+            className="taskForm__input"
             onChange={this.onInputChange}
-            value={this.state.taskName}
-            placeholder="Type Something Here..." />
-          <div className="taskForm__input-checkbox"></div>
+            value={task.taskName}
+            placeholder="Type Something Here..."
+          />
+          <div className="taskForm__input-checkbox" />
           <Icon name="icon-star" style="taskForm__icon-star" />
           <Icon name="icon-edit" style="taskForm__icon-edit" />
         </div>
@@ -85,13 +90,14 @@ export class TaskForm extends React.Component {
               <span className="taskForm__text">Deadline</span>
             </div>
             <div className="taskForm__inputBox">
-              <input 
-                type="date" 
+              <input
+                type="date"
                 name="date"
                 onChange={this.onInputChange}
-                value={this.state.date}
-                className="taskForm__dateInput" 
-                placeholder="yyyy//mm/dd" />
+                value={task.date}
+                className="taskForm__dateInput"
+                placeholder="yyyy//mm/dd"
+              />
             </div>
           </div>
           <div className="taskForm__group">
@@ -109,29 +115,32 @@ export class TaskForm extends React.Component {
               <span className="taskForm__text">Comments</span>
             </div>
             <div className="taskForm__inputBox">
-              <textarea 
+              <textarea
                 name="comment"
                 onChange={this.onInputChange}
-                value={this.state.comment}
-                className="taskForm__textarea" rows="3">
-              </textarea>
+                value={task.comment}
+                className="taskForm__textarea"
+                rows="3"
+              />
             </div>
           </div>
         </div>
         <div className="taskForm__footer">
-          <button 
+          <button
             type="button"
             className="taskForm__button taskForm__button-cancel"
-            onClick={this.onBtnCancel}>
-            <Icon name="icon-close" style="taskForm__footerIcon"/>
+            onClick={this.handleFormCancel}
+          >
+            <Icon name="icon-close" style="taskForm__footerIcon" />
             <span>Cancel</span>
           </button>
-          <button 
+          <button
             type="submit"
             role="button"
-            className="taskForm__button taskForm__button-add">
-            <Icon name="icon-plus" style="taskForm__footerIcon"/>
-            <span>{this.props.id?"Edit Task": "Add Task"}</span>
+            className="taskForm__button taskForm__button-add"
+          >
+            <Icon name="icon-plus" style="taskForm__footerIcon" />
+            <span>{task.id ? "Edit Task" : "Add Task"}</span>
           </button>
         </div>
       </form>

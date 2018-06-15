@@ -9,12 +9,12 @@ import { tasksRef } from "./../services/firebase";
 export default class App extends Component {
   state = {
     tasks: [],
-    currentTasks: [],
+    displayTask: "all",
     isFormOpen: false
   };
 
   componentDidMount() {
-    this.selectTasks("all");
+    this.selectTasks(this.state.displayTask);
   }
 
   handleFormOpen = () => {
